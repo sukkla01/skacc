@@ -72,7 +72,48 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        //---- death --------
+         $sql = "SELECT p.HOSPCODE,chospital.hosname,COUNT(p.cid) AS tcount
+                FROM person p
+                LEFT JOIN chospital ON p.HOSPCODE = chospital.hoscode
+                LEFT JOIN death d on d.HOSPCODE=p.HOSPCODE and d.PID=p.PID
+                where d.DDEATH BETWEEN '20151001' AND '20160930'
+                AND (left(d.CDEATH_A,3) BETWEEN 'V01' AND 'V99' OR
+                                 left(d.CDEATH_B,3) BETWEEN 'V01' AND 'V99' OR
+                                 left(d.CDEATH_C,3) BETWEEN 'V01' AND 'V99' OR
+                                 left(d.CDEATH_D,3) BETWEEN 'V01' AND 'V99' OR
+                                 left(d.ODISEASE,3) BETWEEN 'V01' AND 'V99' OR
+                                 left(d.CDEATH,3) BETWEEN 'V01' AND 'V99' )
+                AND p.DISCHARGE = '9'  AND hostype IN('06','07')
+                group by p.HOSPCODE";
+        $connection = Yii::$app->db2;
+        $data = $connection->createCommand($sql)
+                ->queryAll();
+
+        for ($i = 0; $i < sizeof($data); $i++) {
+            $hosname[] = $data[$i]['hosname'];
+            $tcount[] = $data[$i]['tcount'] * 1;
+            //$m2[] = $data[$i]['m2'] * 1;
+        }
+        
+        // -------- accident -----
+        $sqla = "SELECT a.HOSPCODE ,c.hosname,COUNT(a.seq) AS tcount
+                FROM accident a
+                LEFT JOIN chospital c ON a.HOSPCODE = c.hoscode
+                LEFT JOIN person p on a.HOSPCODE=p.HOSPCODE and a.PID=p.PID
+                WHERE datetime_serv BETWEEN '20151001' AND '20160930' AND hostype IN('06','07')
+                      AND p.DISCHARGE = '9' 
+                GROUP BY hoscode";
+        $connection = Yii::$app->db2;
+        $dataa = $connection->createCommand($sqla)
+                ->queryAll();
+
+        for ($i = 0; $i < sizeof($dataa); $i++) {
+            $hosnamea[] = $dataa[$i]['hosname'];
+            $tcounta[] = $dataa[$i]['tcount'] * 1;
+            //$m2[] = $data[$i]['m2'] * 1;
+        }
+        return $this->render('index',['hosname'=>$hosname,'tcount'=>$tcount,'hosnamea'=>$hosnamea,'tcounta'=>$tcounta]);
     }
 
     /**
