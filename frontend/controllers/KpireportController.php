@@ -442,5 +442,65 @@ group by p.HOSPCODE ";
         ]);
         return $this->render('causedeath', ['dataProvider' => $dataProvider]);
     }
+    
+     public function actionCauseinjury() {
+        //$this->permitRole([1, 3]);
+       /* $date1 = date('Y-m-d');
+        $date2 = date('Y-m-d');
+        if (Yii::$app->request->isPost) {
+            if (isset($_POST['date1']) == '') {
+                $date1 = Yii::$app->session['date1'];
+                $date2 = Yii::$app->session['date2'];
+            } else {
+
+                $date1 = $_POST['date1'];
+                $date2 = $_POST['date2'];
+                Yii::$app->session['date1'] = $date1;
+                Yii::$app->session['date2'] = $date2;
+            }
+        }*/
+
+        $sql = " SELECT p.HOSPCODE,chospital.hosname,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'V01' AND 'V89'  THEN '1' ELSE '0' END) AS '1. อุบัติเหตุจากการขนส่ง',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W00' AND 'W19'  THEN '1' ELSE '0' END) AS '2.1 พลัด ตก หกล้ม',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W20' AND 'W49'  THEN '1' ELSE '0' END) AS '2.2 แรงเชิงกลวัตถุ',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W50' AND 'W64'  THEN '1' ELSE '0' END) AS '2.3 แรงเชิงกลสัตว์ คน',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W65' AND 'W74'  THEN '1' ELSE '0' END) AS '2.4 ตกน้ำ จมน้ำ',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W75' AND 'W84'  THEN '1' ELSE '0' END) AS '2.5 คุกคามการหายใจ',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W85' AND 'W99'  THEN '1' ELSE '0' END) AS '2.6 ไฟฟ้า รังสี',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X00' AND 'X09'  THEN '1' ELSE '0' END) AS '2.7 ควันไฟ เปลวไฟ',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X10' AND 'X19'  THEN '1' ELSE '0' END) AS '2.8 ความร้อน ของร้อน',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X20' AND 'X29'  THEN '1' ELSE '0' END) AS '2.9 พิษจากสัตว์ พืช',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X30' AND 'X39'  THEN '1' ELSE '0' END) AS '2.10 พลังงานธรรมชาติ',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X40' AND 'X49'  THEN '1' ELSE '0' END) AS '2.11 พิษ',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X50' AND 'X57'  THEN '1' ELSE '0' END) AS '2.12 ออกแรงเกิน',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X58' AND 'X59'  THEN '1' ELSE '0' END) AS '2.13 ไม่ทราบแน่ชัด',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X60' AND 'X84'  THEN '1' ELSE '0' END) AS '3.ทำร้ายตนเอง',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X85' AND 'Y09'  THEN '1' ELSE '0' END) AS '4.ถูกทำร้ายร่างกาย',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'Y10' AND 'Y33'  THEN '1' ELSE '0' END) AS '5.บาดเจ็บโดยไม่ทราบเจตนา',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'Y35' AND 'Y36'  THEN '1' ELSE '0' END) AS '7.กฏหมายหรือสงคราม',
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'Y34' AND 'Y34'  THEN '1' ELSE '0' END) AS '8.ไม่ทราบสาเหตุ เจตนา'
+
+FROM person p
+LEFT JOIN chospital ON p.HOSPCODE = chospital.hoscode
+LEFT JOIN service s on s.HOSPCODE=p.HOSPCODE and s.PID=p.PID
+LEFT JOIN diagnosis_opd d on d.HOSPCODE=s.HOSPCODE and d.PID=s.PID and d.SEQ=s.SEQ
+where s.DATE_SERV BETWEEN '20151001' AND '20151015'
+AND p.DISCHARGE = '9' 
+group by p.HOSPCODE ";
+        try {
+            $rawData = \Yii::$app->db2->createCommand($sql)->queryAll();
+        } catch (\yii\db\Exception $e) {
+            throw new \yii\web\ConflictHttpException('sql error');
+        }
+        $dataProvider = new \yii\data\ArrayDataProvider([
+            //'key' => 'hoscode',
+            'allModels' => $rawData,
+            'pagination' => [
+                'pageSize' => 50
+            ],
+        ]);
+        return $this->render('causeinjury', ['dataProvider' => $dataProvider]);
+    }
 
 }

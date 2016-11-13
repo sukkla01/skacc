@@ -13,11 +13,11 @@ echo Breadcrumbs::widget([
     'itemTemplate' => "<li><i>{link}</i></li>\n", // template for all links
     'links' => [
             [
-            'label' => 'ระบบรายงาน',
+            'label' => 'การเกิดอุบัติเหตุ',
         //'url' => ['post-category/view'],
         //'template' => "<li><b>{link}</b></li>\n", // template for this link only
         ],
-        'ระบบรายงานใหม่'
+        'Admit'
     ],
 ]);
 ?>

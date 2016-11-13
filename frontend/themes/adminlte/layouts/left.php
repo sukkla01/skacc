@@ -10,62 +10,102 @@ use yii\helpers\Html;
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                <img src="<?= $directoryAsset ?>/img/jub001.png" class="img-circle" alt="User Image"/>
             </div>
-            <div class="pull-left info">
-                <p>Guest</p>
+             <div class="pull-left info">
+                <?php if (Yii::$app->user->isGuest) { ?>
+                    <p>Guest</p>
+                    <a href="#"><i class="fa fa-circle text-red"></i> Offline</a>
+                <?php } else { ?>
+                    <p><?= Yii::$app->user->identity->tname ?></p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                <?php } ?>
 
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+
             </div>
         </div>
 
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                <span class="input-group-btn">
-                    <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
-                    </button>
-                </span>
-            </div>
-        </form>
+
         <!-- /.search form -->
         <ul class="sidebar-menu">
-            <li class="header">MAIN MENU</li>
+
 
 
             <li>
                 <a href="<?= Url::to('index.php?r=site') ?>">
-                    <i class="fa fa-th"></i> <span>Dashboard</span>
+                    <i class="fa fa-th "></i> <span>&nbsp;Dashboard</span>
                     <span class="pull-right-container">
                         <small class="label pull-right bg-green">new</small>
                     </span>
                 </a>
             </li>
             <li>
-                <a href="<?= Url::to('index.php?r=searchbank') ?>">
-                    <i class="fa fa-search"></i> <span>ตัวชี้วัด KPI</span>
+                <a href="#">
+                    <i class="fa fa-bookmark-o  fa-lg  " style="color:greenyellow;"></i> <span>ตัวชี้วัด KPI</span>
 
                 </a>
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-address-card-o"></i> <span>ระบบรายงาน</span>
+                    <i class="fa fa-bookmark-o fa-lg" style="color:blueviolet;"></i> <span>การเกิดอุบัติเหตุ</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
 
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?= Url::to('index.php?r=eh') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
-                                <small class="label pull-right bg-orange">14</small>
-                            </span>เอ๊ะ!!!</a></li>
+                    <li><a href="<?= Url::to('index.php?r=kpireport/iadmit') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
+                                <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                            </span>Admit</a></li>
+                    <li><a href="<?= Url::to('index.php?r=kpireport/iinjury') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
+                                 <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                            </span>บาดเจ็บ</a></li>
+                    <li><a href="<?= Url::to('index.php?r=kpireport/ideath') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
+                               <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                            </span>เสียชีวิต</a></li>
+
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-bookmark-o fa-lg" style="font-size:20px;color:#ff3399;"></i> <span>ประเภทการเกิดอุบัติเหตุ</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?= Url::to('index.php?r=kpireport/vinjury') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
+                                <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                            </span>บาดเจ็บ</a></li>
+                    <li><a href="<?= Url::to('index.php?r=kpireport/vdeath') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
+                                 <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                            </span>เสียชีวิต</a></li>
+
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-bookmark-o fa-lg" style="color:#00ccff;"></i> <span>19 สาเหตุการเกิดอุบัติเหตุ</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+
+                </a>
+                <ul class="treeview-menu">
+                     <li><a href="<?= Url::to('index.php?r=kpireport/causeinjury') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
+                                <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                            </span>บาดเจ็บ</a></li>
+                    <li><a href="<?= Url::to('index.php?r=kpireport/causedeath') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
+                                 <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                            </span>เสียชีวิต</a></li>
 
                 </ul>
             </li>
 
             <li class="header"></li>
-            <li><a href="<?= Url::to('/swdata/backend/web') ?>" target="_blank"><i class="fa fa-circle-o text-aqua" ></i> <span>ผู้ดูแลระบบ</span></a></li>
+            <li><a href="<?= Url::to('/skacc/backend/web') ?>" target="_blank"><i class="fa fa-circle-o text-aqua" ></i> <span>ผู้ดูแลระบบ</span></a></li>
 
             <?php
             $cid = '';
@@ -86,7 +126,7 @@ use yii\helpers\Html;
 
 
                 </li>
-<?php } ?>
+            <?php } ?>
 
 
         </ul>

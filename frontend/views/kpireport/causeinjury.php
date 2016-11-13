@@ -7,13 +7,12 @@ use kartik\widgets\DatePicker;
 use kartik\grid\GridView;
 use kartik\export\ExportMenu;
 use yii\widgets\Breadcrumbs;
-use yii\helpers\Url;
 
 echo Breadcrumbs::widget([
     'itemTemplate' => "<li><i>{link}</i></li>\n", // template for all links
     'links' => [
             [
-            'label' => 'การเกิดอุบัติเหตุ',
+            'label' => '19 สาเหตุการเกิดอุบัติเหตุ',
         //'url' => ['post-category/view'],
         //'template' => "<li><b>{link}</b></li>\n", // template for this link only
         ],
@@ -30,28 +29,13 @@ echo Breadcrumbs::widget([
         <div class="col-md-12">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <div class="pull-left"><span style="font-weight: bold;" class="btn btn-info btn-flat"><h4><i class="fa fa-bookmark"></i>&nbsp;&nbsp;จำนวนการเกิดอุบัติเหตุแล้วมีการบาดเจ็บ</h4></span></div>
+                    <div class="pull-left"><span style="font-weight: bold;" class="btn btn-info btn-flat"><h4><i class="fa fa-bookmark"></i>&nbsp;&nbsp;จำนวนการเกิดอุบัติเหตุแล้ว Admit</h4></span></div>
                     <div  class="pull-right">
                         <div>
-                            <?php
-                               if($rep_year=='2016'){
-                                  $b1='btn btn-primary';
-                                  $b2='btn btn-success';
-                                  $b3='btn btn-success';
-                               } else if ($rep_year=='2017'){
-                                  $b1='btn btn-success';
-                                  $b2='btn btn-primary';
-                                  $b3='btn btn-success'; 
-                               }else{
-                                  $b1='btn btn-success';
-                                  $b2='btn btn-success';
-                                  $b3='btn btn-primary';  
-                               }
-                            ?>
                             <div class="btn-group pull-right" role="group">
-                                <a style="font-weight: bold;" class="<?=$b1?>" href="<?= Url::to(['kpireport/iadmit', 'rep_year' => '2016']) ?>">2559</a>
-                                <a style="font-weight: bold;" class="<?=$b2?>" href="<?= Url::to(['kpireport/iadmit', 'rep_year' => '2017']) ?>">2560</a>
-                                <a style="font-weight: bold;" class="<?=$b3?>" href="<?= Url::to(['kpireport/iadmit', 'rep_year' => '2018']) ?>">2561</a>
+                                <a style="font-weight: bold;" class="btn btn-success" href="/r2dc/web/moph/index?rep_year=2015">2559</a>
+                                <a style="font-weight: bold;" class="btn  btn-primary" href="/r2dc/web/moph/index?rep_year=2016">2560</a>
+                                <a style="font-weight: bold;" class="btn btn-success" href="/r2dc/web/moph/index?rep_year=2017">2561</a>
                             </div>
                             <div class="pull-right">
                                 <button style="font-weight: bold; margin-right: 5px;" class="btn btn-success" data-widget="collapse" data-toggle="tooltip" title="แสดง/ซ่อน ข้อมูล"><i class="fa fa-calendar"></i>&nbsp;&nbsp;ปีงบประมาณ</button>
@@ -85,76 +69,138 @@ echo Breadcrumbs::widget([
                             'pageSummary' => 'รวมทั้งหมด'
                         ],
                             [
-                            'attribute' => 'Age0_4',
-                            'label' => '0-4 ปี',
+                            'attribute' => 'd1',
+                            'label' => '1.อุบัติเหตุจากการขนส่ง',
                             'hAlign' => 'right',
                             'pageSummary' => true,
                             'pageSummaryOptions' => ['id' => 'total_sum'],
                         ],
                             [
-                            'attribute' => 'Age5_9',
-                            'label' => '5-9 ปี',
+                            'attribute' => 'd2',
+                            'label' => '2.1 พลัด ตก หกล้ม',
                             'hAlign' => 'right',
                             'pageSummary' => true,
                             'pageSummaryOptions' => ['id' => 'total_sum'],
                         ],
                             [
-                            'attribute' => 'Age10_14',
-                            'label' => '10-14 ปี',
+                            'attribute' => 'd3',
+                            'label' => '2.2 แรงเชิงกลวัตถุ',
                             'hAlign' => 'right',
                             'pageSummary' => true,
                             'pageSummaryOptions' => ['id' => 'total_sum'],
                         ],
                             [
-                            'attribute' => 'Age15_24',
-                            'label' => '15-24 ปี',
+                            'attribute' => 'd4',
+                            'label' => '2.3 แรงเชิงกลสัตว์ คน',
                             'hAlign' => 'right',
                             'pageSummary' => true,
                             'pageSummaryOptions' => ['id' => 'total_sum'],
                         ],
                             [
-                            'attribute' => 'Age25_34',
-                            'label' => '25-34 ปี',
+                            'attribute' => 'd5',
+                            'label' => '2.4 ตกน้ำ จมน้ำ',
                             'hAlign' => 'right',
                             'pageSummary' => true,
                             'pageSummaryOptions' => ['id' => 'total_sum'],
                         ],
                             [
-                            'attribute' => 'Age35_44',
-                            'label' => '35-44 ปี',
+                            'attribute' => 'd6',
+                            'label' => '2.5 คุกคามการหายใจ',
                             'hAlign' => 'right',
                             'pageSummary' => true,
                             'pageSummaryOptions' => ['id' => 'total_sum'],
                         ],
                             [
-                            'attribute' => 'Age45_54',
-                            'label' => '45-54 ปี',
+                            'attribute' => 'd7',
+                            'label' => '2.6 ไฟฟ้า รังสี',
                             'hAlign' => 'right',
                             'pageSummary' => true,
                             'pageSummaryOptions' => ['id' => 'total_sum'],
                         ],
                             [
-                            'attribute' => 'Age55_64',
-                            'label' => '55-64 ปี',
+                            'attribute' => 'd8',
+                            'label' => '2.7 ควันไฟ เปลวไฟ',
                             'hAlign' => 'right',
                             'pageSummary' => true,
                             'pageSummaryOptions' => ['id' => 'total_sum'],
                         ],
                             [
-                            'attribute' => 'Age65Up',
-                            'label' => 'มากกว่า 65 ปี',
+                            'attribute' => 'd9',
+                            'label' => '2.8 ความร้อน ของร้อน',
                             'hAlign' => 'right',
                             'pageSummary' => true,
                             'pageSummaryOptions' => ['id' => 'total_sum'],
                         ],
                             [
-                            'attribute' => 'total',
-                            'label' => 'รวมทั้งหมด',
+                            'attribute' => 'd10',
+                            'label' => '2.9 พิษจากสัตว์ พืช',
                             'hAlign' => 'right',
                             'pageSummary' => true,
                             'pageSummaryOptions' => ['id' => 'total_sum'],
                         ],
-                            
+                            [
+                            'attribute' => 'd11',
+                            'label' => '2.10 พลังงานธรรมชาติ',
+                            'hAlign' => 'right',
+                            'pageSummary' => true,
+                            'pageSummaryOptions' => ['id' => 'total_sum'],
+                        ],
+                            [
+                            'attribute' => 'd12',
+                            'label' => '2.11 พิษ',
+                            'hAlign' => 'right',
+                            'pageSummary' => true,
+                            'pageSummaryOptions' => ['id' => 'total_sum'],
+                        ],
+                            [
+                            'attribute' => 'd13',
+                            'label' => '2.12 ออกแรงเกิน',
+                            'hAlign' => 'right',
+                            'pageSummary' => true,
+                            'pageSummaryOptions' => ['id' => 'total_sum'],
+                        ],
+                            [
+                            'attribute' => 'd14',
+                            'label' => '2.13 ไม่ทราบแน่ชัด',
+                            'hAlign' => 'right',
+                            'pageSummary' => true,
+                            'pageSummaryOptions' => ['id' => 'total_sum'],
+                        ],
+                            [
+                            'attribute' => 'd15',
+                            'label' => '3.ทำร้ายตนเอง',
+                            'hAlign' => 'right',
+                            'pageSummary' => true,
+                            'pageSummaryOptions' => ['id' => 'total_sum'],
+                        ],
+                            [
+                            'attribute' => 'd16',
+                            'label' => '4.ถูกทำร้ายร่างกาย',
+                            'hAlign' => 'right',
+                            'pageSummary' => true,
+                            'pageSummaryOptions' => ['id' => 'total_sum'],
+                        ],
+                            [
+                            'attribute' => 'd17',
+                            'label' => '5.บาดเจ็บโดยไม่ทราบเจตนา',
+                            'hAlign' => 'right',
+                            'pageSummary' => true,
+                            'pageSummaryOptions' => ['id' => 'total_sum'],
+                        ],
+                            [
+                            'attribute' => 'd18',
+                            'label' => '7.กฏหมายหรือสงคราม',
+                            'hAlign' => 'right',
+                            'pageSummary' => true,
+                            'pageSummaryOptions' => ['id' => 'total_sum'],
+                        ],
+                            [
+                            'attribute' => 'd19',
+                            'label' => '8.ไม่ทราบสาเหตุ เจตนา',
+                            'hAlign' => 'right',
+                            'pageSummary' => true,
+                            'pageSummaryOptions' => ['id' => 'total_sum'],
+                        ],
                     ];
 
                     echo '<div class="col-md-12" align="right" >';
