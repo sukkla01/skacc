@@ -290,21 +290,13 @@ group by p.HOSPCODE";
     
 
     public function actionCausedeath() {
-        //$this->permitRole([1, 3]);
-       /* $date1 = date('Y-m-d');
-        $date2 = date('Y-m-d');
-        if (Yii::$app->request->isPost) {
-            if (isset($_POST['date1']) == '') {
-                $date1 = Yii::$app->session['date1'];
-                $date2 = Yii::$app->session['date2'];
-            } else {
-
-                $date1 = $_POST['date1'];
-                $date2 = $_POST['date2'];
-                Yii::$app->session['date1'] = $date1;
-                Yii::$app->session['date2'] = $date2;
-            }
-        }*/
+          if(isset($_GET['rep_year'])) {
+           $rep_year = $_GET['rep_year'];
+        }else{
+            $rep_year=date('Y');
+        }
+        $date1 = ($rep_year-1).'1001';
+        $date2 = $rep_year.'0930';
 
         $sql = "SELECT p.HOSPCODE,chospital.hosname,
 sum(CASE WHEN (left(d.CDEATH_A,3) BETWEEN 'V01' AND 'V89' OR
@@ -425,7 +417,7 @@ sum(CASE WHEN (left(d.CDEATH_A,3) BETWEEN 'Y34' AND 'Y34' OR
 FROM person p
 LEFT JOIN chospital ON p.HOSPCODE = chospital.hoscode
 LEFT JOIN death d on d.HOSPCODE=p.HOSPCODE and d.PID=p.PID
-where d.DDEATH BETWEEN '2015-10-01' AND '2016-09-03'
+where d.DDEATH BETWEEN '$date1' AND '$date2'
 AND p.DISCHARGE = '9' 
 group by p.HOSPCODE ";
         try {
@@ -444,48 +436,40 @@ group by p.HOSPCODE ";
     }
     
      public function actionCauseinjury() {
-        //$this->permitRole([1, 3]);
-       /* $date1 = date('Y-m-d');
-        $date2 = date('Y-m-d');
-        if (Yii::$app->request->isPost) {
-            if (isset($_POST['date1']) == '') {
-                $date1 = Yii::$app->session['date1'];
-                $date2 = Yii::$app->session['date2'];
-            } else {
-
-                $date1 = $_POST['date1'];
-                $date2 = $_POST['date2'];
-                Yii::$app->session['date1'] = $date1;
-                Yii::$app->session['date2'] = $date2;
-            }
-        }*/
+          if(isset($_GET['rep_year'])) {
+           $rep_year = $_GET['rep_year'];
+        }else{
+            $rep_year=date('Y');
+        }
+        $date1 = ($rep_year-1).'1001';
+        $date2 = $rep_year.'0930';
 
         $sql = " SELECT p.HOSPCODE,chospital.hosname,
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'V01' AND 'V89'  THEN '1' ELSE '0' END) AS '1. อุบัติเหตุจากการขนส่ง',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W00' AND 'W19'  THEN '1' ELSE '0' END) AS '2.1 พลัด ตก หกล้ม',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W20' AND 'W49'  THEN '1' ELSE '0' END) AS '2.2 แรงเชิงกลวัตถุ',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W50' AND 'W64'  THEN '1' ELSE '0' END) AS '2.3 แรงเชิงกลสัตว์ คน',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W65' AND 'W74'  THEN '1' ELSE '0' END) AS '2.4 ตกน้ำ จมน้ำ',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W75' AND 'W84'  THEN '1' ELSE '0' END) AS '2.5 คุกคามการหายใจ',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W85' AND 'W99'  THEN '1' ELSE '0' END) AS '2.6 ไฟฟ้า รังสี',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X00' AND 'X09'  THEN '1' ELSE '0' END) AS '2.7 ควันไฟ เปลวไฟ',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X10' AND 'X19'  THEN '1' ELSE '0' END) AS '2.8 ความร้อน ของร้อน',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X20' AND 'X29'  THEN '1' ELSE '0' END) AS '2.9 พิษจากสัตว์ พืช',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X30' AND 'X39'  THEN '1' ELSE '0' END) AS '2.10 พลังงานธรรมชาติ',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X40' AND 'X49'  THEN '1' ELSE '0' END) AS '2.11 พิษ',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X50' AND 'X57'  THEN '1' ELSE '0' END) AS '2.12 ออกแรงเกิน',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X58' AND 'X59'  THEN '1' ELSE '0' END) AS '2.13 ไม่ทราบแน่ชัด',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X60' AND 'X84'  THEN '1' ELSE '0' END) AS '3.ทำร้ายตนเอง',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X85' AND 'Y09'  THEN '1' ELSE '0' END) AS '4.ถูกทำร้ายร่างกาย',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'Y10' AND 'Y33'  THEN '1' ELSE '0' END) AS '5.บาดเจ็บโดยไม่ทราบเจตนา',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'Y35' AND 'Y36'  THEN '1' ELSE '0' END) AS '7.กฏหมายหรือสงคราม',
-sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'Y34' AND 'Y34'  THEN '1' ELSE '0' END) AS '8.ไม่ทราบสาเหตุ เจตนา'
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'V01' AND 'V89'  THEN '1' ELSE '0' END) AS d1,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W00' AND 'W19'  THEN '1' ELSE '0' END) AS d2,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W20' AND 'W49'  THEN '1' ELSE '0' END) AS d3,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W50' AND 'W64'  THEN '1' ELSE '0' END) AS d4,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W65' AND 'W74'  THEN '1' ELSE '0' END) AS d5,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W75' AND 'W84'  THEN '1' ELSE '0' END) AS d6,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'W85' AND 'W99'  THEN '1' ELSE '0' END) AS d7,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X00' AND 'X09'  THEN '1' ELSE '0' END) AS d8,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X10' AND 'X19'  THEN '1' ELSE '0' END) AS d9,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X20' AND 'X29'  THEN '1' ELSE '0' END) AS d10,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X30' AND 'X39'  THEN '1' ELSE '0' END) AS d11,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X40' AND 'X49'  THEN '1' ELSE '0' END) AS d12,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X50' AND 'X57'  THEN '1' ELSE '0' END) AS d13,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X58' AND 'X59'  THEN '1' ELSE '0' END) AS d14,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X60' AND 'X84'  THEN '1' ELSE '0' END) AS d15,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'X85' AND 'Y09'  THEN '1' ELSE '0' END) AS d16,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'Y10' AND 'Y33'  THEN '1' ELSE '0' END) AS d17,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'Y35' AND 'Y36'  THEN '1' ELSE '0' END) AS d18,
+sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'Y34' AND 'Y34'  THEN '1' ELSE '0' END) AS d19
 
 FROM person p
 LEFT JOIN chospital ON p.HOSPCODE = chospital.hoscode
 LEFT JOIN service s on s.HOSPCODE=p.HOSPCODE and s.PID=p.PID
 LEFT JOIN diagnosis_opd d on d.HOSPCODE=s.HOSPCODE and d.PID=s.PID and d.SEQ=s.SEQ
-where s.DATE_SERV BETWEEN '20151001' AND '20151015'
+where s.DATE_SERV BETWEEN '$date1' AND '$date2'
 AND p.DISCHARGE = '9' 
 group by p.HOSPCODE ";
         try {

@@ -85,7 +85,7 @@ class SiteController extends Controller
                                  left(d.ODISEASE,3) BETWEEN 'V01' AND 'V99' OR
                                  left(d.CDEATH,3) BETWEEN 'V01' AND 'V99' )
                 AND p.DISCHARGE = '9'  AND hostype IN('06','07')
-                group by p.HOSPCODE";
+                group by p.HOSPCODE ORDER BY d.hospcode";
         $connection = Yii::$app->db2;
         $data = $connection->createCommand($sql)
                 ->queryAll();
@@ -103,7 +103,7 @@ class SiteController extends Controller
                 LEFT JOIN person p on a.HOSPCODE=p.HOSPCODE and a.PID=p.PID
                 WHERE datetime_serv BETWEEN '20151001' AND '20160930' AND hostype IN('06','07')
                       AND p.DISCHARGE = '9' 
-                GROUP BY hoscode";
+                GROUP BY hoscode  ORDER BY a.hospcode";
         $connection = Yii::$app->db2;
         $dataa = $connection->createCommand($sqla)
                 ->queryAll();
