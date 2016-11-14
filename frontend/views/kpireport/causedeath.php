@@ -49,9 +49,9 @@ echo Breadcrumbs::widget([
                                }
                             ?>
                             <div class="btn-group pull-right" role="group">
-                                <a style="font-weight: bold;" class="<?=$b1?>" href="<?= Url::to(['kpireport/iadmit', 'rep_year' => '2016']) ?>">2559</a>
-                                <a style="font-weight: bold;" class="<?=$b2?>" href="<?= Url::to(['kpireport/iadmit', 'rep_year' => '2017']) ?>">2560</a>
-                                <a style="font-weight: bold;" class="<?=$b3?>" href="<?= Url::to(['kpireport/iadmit', 'rep_year' => '2018']) ?>">2561</a>
+                                <a style="font-weight: bold;" class="<?=$b1?>" href="<?= Url::to(['kpireport/causedeath', 'rep_year' => '2016']) ?>">2559</a>
+                                <a style="font-weight: bold;" class="<?=$b2?>" href="<?= Url::to(['kpireport/causedeath', 'rep_year' => '2017']) ?>">2560</a>
+                                <a style="font-weight: bold;" class="<?=$b3?>" href="<?= Url::to(['kpireport/causedeath', 'rep_year' => '2018']) ?>">2561</a>
                             </div>
                             <div class="pull-right">
                                 <button style="font-weight: bold; margin-right: 5px;" class="btn btn-success" data-widget="collapse" data-toggle="tooltip" title="แสดง/ซ่อน ข้อมูล"><i class="fa fa-calendar"></i>&nbsp;&nbsp;ปีงบประมาณ</button>
