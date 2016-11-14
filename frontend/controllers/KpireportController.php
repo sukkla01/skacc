@@ -432,7 +432,7 @@ group by p.HOSPCODE ";
                 'pageSize' => 50
             ],
         ]);
-        return $this->render('causedeath', ['dataProvider' => $dataProvider]);
+        return $this->render('causedeath', ['dataProvider' => $dataProvider,'rep_year'=>$rep_year]);
     }
     
      public function actionCauseinjury() {
@@ -484,7 +484,7 @@ group by p.HOSPCODE ";
                 'pageSize' => 50
             ],
         ]);
-        return $this->render('causeinjury', ['dataProvider' => $dataProvider]);
+        return $this->render('causeinjury', ['dataProvider' => $dataProvider,'rep_year'=>$rep_year]);
     }
 
 }
