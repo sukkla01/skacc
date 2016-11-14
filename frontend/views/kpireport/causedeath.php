@@ -30,7 +30,7 @@ echo Breadcrumbs::widget([
         <div class="col-md-12">
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <div class="pull-left"><span style="font-weight: bold;" class="btn btn-info btn-flat"><h4><i class="fa fa-bookmark"></i>&nbsp;&nbsp;จำนวนการเกิดอุบัติเหตุแล้ว Admit</h4></span></div>
+                    <div class="pull-left"><span style="font-weight: bold;" class="btn btn-danger btn-flat"><h4><i class="fa fa-bookmark"></i>&nbsp;&nbsp;19 สาเหตุการเกิดอุบัติเหตุแล้วเสียชีวิต</h4></span></div>
                     <div  class="pull-right">
                         <div>
                             <?php
