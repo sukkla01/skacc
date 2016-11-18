@@ -21,14 +21,77 @@ echo Breadcrumbs::widget([
     ],
 ]);
 ?>
+<?php if($flash==1){ ?>
+<div class="row">
+    <div class="col-md-6">
+        <div class="callout callout-info">
+            <h4>ประมวลผลระหว่างวันที่ <?php echo $date1.' ถึง '.$date2; ?></h4>
+
+        </div>
+    </div>
+</div>
+<?php } ?>
 
 <div class="body-content">
+    <div class="row" id="sql" style="display: none">
+        <div class="col-md-12">
+            <div class="box box-info">
+                <div class="box-body">
+
+
+
+                    <?= Html::beginForm(); ?>
+                    <i class="fa fa-calendar"></i>&nbsp;&nbsp;
+                    ประมวลข้อมูลระหว่าง :
+                    <?php
+                    echo yii\jui\DatePicker::widget([
+                        'name' => 'date1',
+                        'value' => $date1,
+                        'language' => 'th',
+                        'dateFormat' => 'yyyy-MM-dd',
+                        'clientOptions' => [
+                            'changeMonth' => true,
+                            'changeYear' => true,
+                        ],
+                    ]);
+                    ?>
+
+                    ถึง
+
+
+                    <?php
+                    echo yii\jui\DatePicker::widget([
+                        'name' => 'date2',
+                        'value' => $date2,
+                        'language' => 'th',
+                        'dateFormat' => 'yyyy-MM-dd',
+                        'clientOptions' => [
+                            'changeMonth' => true,
+                            'changeYear' => true,
+                        ]
+                    ]);
+                    ?>
+
+                    &nbsp;&nbsp;<button class='btn btn-danger'>ประมวลผล</button>
+
+                    <?= Html::endForm(); ?>
+
+
+
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-12">
             <div class="box box-info">
                 <div class="box-header with-border">
                     <div class="pull-left"><span style="font-weight: bold;" class="btn btn-danger btn-flat"><h4><i class="fa fa-bookmark"></i>&nbsp;&nbsp;จำนวนการตาย จำแนกตามประเภทการเกิดอุบัติเหตุ</h4></span></div>
+                    &nbsp;&nbsp;<a style="font-weight: bold;" class="btn btn-success" id="btn_sql"><h4><i class="fa fa-calendar"></i>&nbsp;&nbsp;รายงานตามวันที่</h4></a>
                     <div  class="pull-right">
                         <div>
                             <?php
@@ -200,3 +263,16 @@ echo Breadcrumbs::widget([
 
     </div>
 </div>
+<?php
+$script = <<< JS
+$(function(){
+    $("label[title='Show all data']").hide();
+});
+        
+$('#btn_sql').on('click', function(e) {
+    
+   $('#sql').toggle();
+});
+JS;
+$this->registerJs($script);
+?>

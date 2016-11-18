@@ -35,3 +35,5 @@ phpunit.phar
 /.vagrant
 /vagrant/
 /.github/
+/frontend/web/assets/
+/backend/web/assets/

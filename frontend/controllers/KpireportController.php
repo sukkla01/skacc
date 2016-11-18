@@ -1,25 +1,46 @@
 <?php
 
 namespace frontend\controllers;
+
 use Yii;
 
-class KpireportController extends \yii\web\Controller {
+class KpireportController extends \common\components\AppController {
 
     public function actionIndex() {
         return $this->render('index');
     }
-    
+
     public function actionIadmit() {
-        //$this->permitRole([1, 3]);
-        if(isset($_GET['rep_year'])) {
-           $rep_year = $_GET['rep_year'];
-        }else{
-            $rep_year=date('Y');
+        $this->permitRole([1, 3]);
+        $date1 = date('Y-m-d');
+        $date2 = date('Y-m-d');
+        $flash=0;
+        
+        if (isset($_GET['rep_year'])) {
+            $rep_year = $_GET['rep_year'];
+        } else {
+            $rep_year = date('Y');
         }
-        $date1 = ($rep_year-1).'1001';
-        $date2 = $rep_year.'0930';
+        $date1 = ($rep_year - 1) . '-10-'.'01';
+        $date2 = $rep_year . '-09-'.'30';
         
         
+        
+        if (Yii::$app->request->isPost) {
+            if (isset($_POST['date1']) == '') {
+                $date1 = Yii::$app->session['date1'];
+                $date2 = Yii::$app->session['date2'];
+                $flash= 1;
+            } else {
+                $flash= 1;
+                $date1 = $_POST['date1'];
+                $date2 = $_POST['date2'];
+                Yii::$app->session['date1'] = $date1;
+                Yii::$app->session['date2'] = $date2;
+            }
+        }
+
+
         $sql = "SELECT p.HOSPCODE,chospital.hosname,
                 sum(CASE WHEN timestampdiff(year,p.BIRTH,curdate()) BETWEEN 0 and 4  THEN '1' ELSE '0' END) AS Age0_4,
                 sum(CASE WHEN timestampdiff(year,p.BIRTH,curdate()) BETWEEN 5 and 9  THEN '1' ELSE '0' END) AS Age5_9,
@@ -52,19 +73,39 @@ class KpireportController extends \yii\web\Controller {
                 'pageSize' => 50
             ],
         ]);
-        return $this->render('iadmit', ['dataProvider' => $dataProvider,'rep_year'=>$rep_year]);
+        return $this->render('iadmit', ['dataProvider' => $dataProvider, 'rep_year' => $rep_year, 'date1' => $date1, 'date2' => $date2,'flash'=>$flash]);
     }
-    
+
     public function actionIinjury() {
-        //$this->permitRole([1, 3]);
-        if(isset($_GET['rep_year'])) {
-           $rep_year = $_GET['rep_year'];
-        }else{
-            $rep_year=date('Y');
-        }
-        $date1 = ($rep_year-1).'1001';
-        $date2 = $rep_year.'0930';
+        $this->permitRole([1, 3]);
+        $date1 = date('Y-m-d');
+        $date2 = date('Y-m-d');
+        $flash=0;
         
+        if (isset($_GET['rep_year'])) {
+            $rep_year = $_GET['rep_year'];
+        } else {
+            $rep_year = date('Y');
+        }
+        $date1 = ($rep_year - 1) . '-10-'.'01';
+        $date2 = $rep_year . '-09-'.'30';
+        
+        
+        
+        if (Yii::$app->request->isPost) {
+            if (isset($_POST['date1']) == '') {
+                $date1 = Yii::$app->session['date1'];
+                $date2 = Yii::$app->session['date2'];
+                $flash= 1;
+            } else {
+                $flash= 1;
+                $date1 = $_POST['date1'];
+                $date2 = $_POST['date2'];
+                Yii::$app->session['date1'] = $date1;
+                Yii::$app->session['date2'] = $date2;
+            }
+        }
+
         $sql = "SELECT p.HOSPCODE,chospital.hosname,
                 sum(CASE WHEN timestampdiff(year,p.BIRTH,curdate()) BETWEEN 0 and 4  THEN 1 ELSE 0 END) AS Age0_4,
                 sum(CASE WHEN timestampdiff(year,p.BIRTH,curdate()) BETWEEN 5 and 9  THEN 1 ELSE 0 END) AS Age5_9,
@@ -81,7 +122,7 @@ class KpireportController extends \yii\web\Controller {
                 LEFT JOIN chospital ON p.HOSPCODE = chospital.hoscode
                 LEFT JOIN service s on s.HOSPCODE=p.HOSPCODE and s.PID=p.PID
                 LEFT JOIN diagnosis_opd d on d.HOSPCODE=s.HOSPCODE and d.PID=s.PID and d.SEQ=s.SEQ
-                where s.DATE_SERV BETWEEN '20151001' AND '20151031'
+                where s.DATE_SERV BETWEEN '$date1' AND '$date2'
                 AND left(d.DIAGCODE,3) BETWEEN 'V01' AND 'V99'
                 AND p.DISCHARGE = '9' 
                 group by p.HOSPCODE";
@@ -97,18 +138,39 @@ class KpireportController extends \yii\web\Controller {
                 'pageSize' => 50
             ],
         ]);
-        return $this->render('iinjury', ['dataProvider' => $dataProvider,'rep_year'=>$rep_year]);
+        return $this->render('iinjury', ['dataProvider' => $dataProvider, 'rep_year' => $rep_year, 'date1' => $date1, 'date2' => $date2,'flash'=>$flash]);
     }
+
     public function actionIdeath() {
-        //$this->permitRole([1, 3]);
-        if(isset($_GET['rep_year'])) {
-           $rep_year = $_GET['rep_year'];
-        }else{
-            $rep_year=date('Y');
-        }
-        $date1 = ($rep_year-1).'1001';
-        $date2 = $rep_year.'0930';
+        $this->permitRole([1, 3]);
+        $date1 = date('Y-m-d');
+        $date2 = date('Y-m-d');
+        $flash=0;
         
+        if (isset($_GET['rep_year'])) {
+            $rep_year = $_GET['rep_year'];
+        } else {
+            $rep_year = date('Y');
+        }
+        $date1 = ($rep_year - 1) . '-10-'.'01';
+        $date2 = $rep_year . '-09-'.'30';
+        
+        
+        
+        if (Yii::$app->request->isPost) {
+            if (isset($_POST['date1']) == '') {
+                $date1 = Yii::$app->session['date1'];
+                $date2 = Yii::$app->session['date2'];
+                $flash= 1;
+            } else {
+                $flash= 1;
+                $date1 = $_POST['date1'];
+                $date2 = $_POST['date2'];
+                Yii::$app->session['date1'] = $date1;
+                Yii::$app->session['date2'] = $date2;
+            }
+        }
+
         $sql = "SELECT p.HOSPCODE,chospital.hosname,
                 sum(CASE WHEN timestampdiff(year,p.BIRTH,curdate()) BETWEEN 0 and 4  THEN 1 ELSE 0 END) AS Age0_4,
                 sum(CASE WHEN timestampdiff(year,p.BIRTH,curdate()) BETWEEN 5 and 9  THEN 1 ELSE 0 END) AS Age5_9,
@@ -124,7 +186,7 @@ class KpireportController extends \yii\web\Controller {
                 FROM person p
                 LEFT JOIN chospital ON p.HOSPCODE = chospital.hoscode
                 LEFT JOIN death d on d.HOSPCODE=p.HOSPCODE and d.PID=p.PID
-                where d.DDEATH BETWEEN '20151001' AND '20160930'
+                where d.DDEATH BETWEEN '$date1' AND '$date2'
                 AND (left(d.CDEATH_A,3) BETWEEN 'V01' AND 'V99' OR
                                  left(d.CDEATH_B,3) BETWEEN 'V01' AND 'V99' OR
                                  left(d.CDEATH_C,3) BETWEEN 'V01' AND 'V99' OR
@@ -145,19 +207,39 @@ class KpireportController extends \yii\web\Controller {
                 'pageSize' => 50
             ],
         ]);
-        return $this->render('ideath', ['dataProvider' => $dataProvider,'rep_year'=>$rep_year]);
+        return $this->render('ideath', ['dataProvider' => $dataProvider, 'rep_year' => $rep_year, 'date1' => $date1, 'date2' => $date2,'flash'=>$flash]);
     }
-    
+
     public function actionVdeath() {
-        //$this->permitRole([1, 3]);
-        if(isset($_GET['rep_year'])) {
-           $rep_year = $_GET['rep_year'];
-        }else{
-            $rep_year=date('Y');
-        }
-        $date1 = ($rep_year-1).'1001';
-        $date2 = $rep_year.'0930';
+         $this->permitRole([1, 3]);
+        $date1 = date('Y-m-d');
+        $date2 = date('Y-m-d');
+        $flash=0;
         
+        if (isset($_GET['rep_year'])) {
+            $rep_year = $_GET['rep_year'];
+        } else {
+            $rep_year = date('Y');
+        }
+        $date1 = ($rep_year - 1) . '-10-'.'01';
+        $date2 = $rep_year . '-09-'.'30';
+        
+        
+        
+        if (Yii::$app->request->isPost) {
+            if (isset($_POST['date1']) == '') {
+                $date1 = Yii::$app->session['date1'];
+                $date2 = Yii::$app->session['date2'];
+                $flash= 1;
+            } else {
+                $flash= 1;
+                $date1 = $_POST['date1'];
+                $date2 = $_POST['date2'];
+                Yii::$app->session['date1'] = $date1;
+                Yii::$app->session['date2'] = $date2;
+            }
+        }
+
         $sql = "SELECT p.HOSPCODE,chospital.hosname,
 sum(CASE WHEN 
 (left(d.CDEATH_A,3) BETWEEN  'V70' AND 'V79' OR
@@ -240,19 +322,39 @@ group by p.HOSPCODE";
                 'pageSize' => 50
             ],
         ]);
-        return $this->render('vdeath', ['dataProvider' => $dataProvider,'rep_year'=>$rep_year]);
+        return $this->render('vdeath', ['dataProvider' => $dataProvider, 'rep_year' => $rep_year, 'date1' => $date1, 'date2' => $date2,'flash'=>$flash]);
     }
-    
-     public function actionVinjury() {
-        //$this->permitRole([1, 3]);
-        if(isset($_GET['rep_year'])) {
-           $rep_year = $_GET['rep_year'];
-        }else{
-            $rep_year=date('Y');
-        }
-        $date1 = ($rep_year-1).'1001';
-        $date2 = $rep_year.'0930';
+
+    public function actionVinjury() {
+        $this->permitRole([1, 3]);
+        $date1 = date('Y-m-d');
+        $date2 = date('Y-m-d');
+        $flash=0;
         
+        if (isset($_GET['rep_year'])) {
+            $rep_year = $_GET['rep_year'];
+        } else {
+            $rep_year = date('Y');
+        }
+        $date1 = ($rep_year - 1) . '-10-'.'01';
+        $date2 = $rep_year . '-09-'.'30';
+        
+        
+        
+        if (Yii::$app->request->isPost) {
+            if (isset($_POST['date1']) == '') {
+                $date1 = Yii::$app->session['date1'];
+                $date2 = Yii::$app->session['date2'];
+                $flash= 1;
+            } else {
+                $flash= 1;
+                $date1 = $_POST['date1'];
+                $date2 = $_POST['date2'];
+                Yii::$app->session['date1'] = $date1;
+                Yii::$app->session['date2'] = $date2;
+            }
+        }
+
         $sql = "SELECT p.HOSPCODE,chospital.hosname,
 sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'V70' AND 'V79'  THEN '1' ELSE '0' END) AS Bus,
 sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'V60' AND 'V69'  THEN '1' ELSE '0' END) AS Truck,
@@ -285,18 +387,38 @@ group by p.HOSPCODE";
                 'pageSize' => 50
             ],
         ]);
-        return $this->render('vinjury', ['dataProvider' => $dataProvider,'rep_year'=>$rep_year]);
+        return $this->render('vinjury', ['dataProvider' => $dataProvider, 'rep_year' => $rep_year, 'date1' => $date1, 'date2' => $date2,'flash'=>$flash]);
     }
-    
 
     public function actionCausedeath() {
-          if(isset($_GET['rep_year'])) {
-           $rep_year = $_GET['rep_year'];
-        }else{
-            $rep_year=date('Y');
+        $this->permitRole([1, 3]);
+        $date1 = date('Y-m-d');
+        $date2 = date('Y-m-d');
+        $flash=0;
+        
+        if (isset($_GET['rep_year'])) {
+            $rep_year = $_GET['rep_year'];
+        } else {
+            $rep_year = date('Y');
         }
-        $date1 = ($rep_year-1).'1001';
-        $date2 = $rep_year.'0930';
+        $date1 = ($rep_year - 1) . '-10-'.'01';
+        $date2 = $rep_year . '-09-'.'30';
+        
+        
+        
+        if (Yii::$app->request->isPost) {
+            if (isset($_POST['date1']) == '') {
+                $date1 = Yii::$app->session['date1'];
+                $date2 = Yii::$app->session['date2'];
+                $flash= 1;
+            } else {
+                $flash= 1;
+                $date1 = $_POST['date1'];
+                $date2 = $_POST['date2'];
+                Yii::$app->session['date1'] = $date1;
+                Yii::$app->session['date2'] = $date2;
+            }
+        }
 
         $sql = "SELECT p.HOSPCODE,chospital.hosname,
 sum(CASE WHEN (left(d.CDEATH_A,3) BETWEEN 'V01' AND 'V89' OR
@@ -432,17 +554,39 @@ group by p.HOSPCODE ";
                 'pageSize' => 50
             ],
         ]);
-        return $this->render('causedeath', ['dataProvider' => $dataProvider,'rep_year'=>$rep_year]);
+        return $this->render('causedeath', ['dataProvider' => $dataProvider, 'rep_year' => $rep_year, 'date1' => $date1, 'date2' => $date2,'flash'=>$flash]);
+        
     }
-    
-     public function actionCauseinjury() {
-          if(isset($_GET['rep_year'])) {
-           $rep_year = $_GET['rep_year'];
-        }else{
-            $rep_year=date('Y');
+
+    public function actionCauseinjury() {
+        $this->permitRole([1, 3]);
+        $date1 = date('Y-m-d');
+        $date2 = date('Y-m-d');
+        $flash=0;
+        
+        if (isset($_GET['rep_year'])) {
+            $rep_year = $_GET['rep_year'];
+        } else {
+            $rep_year = date('Y');
         }
-        $date1 = ($rep_year-1).'1001';
-        $date2 = $rep_year.'0930';
+        $date1 = ($rep_year - 1) . '-10-'.'01';
+        $date2 = $rep_year . '-09-'.'30';
+        
+        
+        
+        if (Yii::$app->request->isPost) {
+            if (isset($_POST['date1']) == '') {
+                $date1 = Yii::$app->session['date1'];
+                $date2 = Yii::$app->session['date2'];
+                $flash= 1;
+            } else {
+                $flash= 1;
+                $date1 = $_POST['date1'];
+                $date2 = $_POST['date2'];
+                Yii::$app->session['date1'] = $date1;
+                Yii::$app->session['date2'] = $date2;
+            }
+        }
 
         $sql = " SELECT p.HOSPCODE,chospital.hosname,
 sum(CASE WHEN left(d.DIAGCODE,3) BETWEEN 'V01' AND 'V89'  THEN '1' ELSE '0' END) AS d1,
@@ -484,7 +628,7 @@ group by p.HOSPCODE ";
                 'pageSize' => 50
             ],
         ]);
-        return $this->render('causeinjury', ['dataProvider' => $dataProvider,'rep_year'=>$rep_year]);
+        return $this->render('causeinjury', ['dataProvider' => $dataProvider, 'rep_year' => $rep_year, 'date1' => $date1, 'date2' => $date2,'flash'=>$flash]);
     }
 
 }
