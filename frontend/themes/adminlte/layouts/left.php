@@ -56,13 +56,13 @@ use yii\helpers\Html;
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="<?= Url::to('index.php?r=kpireport/iadmit') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
-                                <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                                
                             </span>Admit</a></li>
                     <li><a href="<?= Url::to('index.php?r=kpireport/iinjury') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
-                                 <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                                
                             </span>บาดเจ็บ</a></li>
                     <li><a href="<?= Url::to('index.php?r=kpireport/ideath') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
-                               <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                               
                             </span>เสียชีวิต</a></li>
 
                 </ul>
@@ -77,10 +77,10 @@ use yii\helpers\Html;
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="<?= Url::to('index.php?r=kpireport/vinjury') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
-                                <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                                
                             </span>บาดเจ็บ</a></li>
                     <li><a href="<?= Url::to('index.php?r=kpireport/vdeath') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
-                                 <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                                 
                             </span>เสียชีวิต</a></li>
 
                 </ul>
@@ -95,10 +95,10 @@ use yii\helpers\Html;
                 </a>
                 <ul class="treeview-menu">
                      <li><a href="<?= Url::to('index.php?r=kpireport/causeinjury') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
-                                <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                               
                             </span>บาดเจ็บ</a></li>
                     <li><a href="<?= Url::to('index.php?r=kpireport/causedeath') ?>"><i class="fa fa-circle-o"></i><span class="pull-right-container">
-                                 <span data-toggle="tooltip" title="-_-" class="badge bg-gray pull-right">0</span>
+                                 
                             </span>เสียชีวิต</a></li>
 
                 </ul>

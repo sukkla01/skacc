@@ -15,7 +15,7 @@ $this->title = 'My Yii Application';
             <div class="box box-success">
                 <div class="box-header with-border">
                     <i class="fa fa-eercast"></i>
-                    จำนวนการเกิดอุบัติเหตุแล้วเสียชีวิต ปีงบประมาณ 
+                    จำนวนการเกิดอุบัติเหตุแล้วเสียชีวิต ปีงบประมาณ 2559
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
@@ -62,7 +62,7 @@ $this->title = 'My Yii Application';
             <div class="box box-success">
                 <div class="box-header with-border">
                      <i class="fa fa-spinner"></i>
-                    จำนวนการเกิดอุบัติเหตุทั้งหมด ปีงบประมาณ
+                    จำนวนการเกิดอุบัติเหตุทั้งหมด ปีงบประมาณ 2559
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
