@@ -11,7 +11,7 @@ class KpireportController extends \common\components\AppController {
     }
 
     public function actionIadmit() {
-        $this->permitRole([1, 3]);
+        //$this->permitRole([1, 3]);
         $date1 = date('Y-m-d');
         $date2 = date('Y-m-d');
         $flash=0;
@@ -77,7 +77,7 @@ class KpireportController extends \common\components\AppController {
     }
 
     public function actionIinjury() {
-        $this->permitRole([1, 3]);
+       // $this->permitRole([1, 3]);
         $date1 = date('Y-m-d');
         $date2 = date('Y-m-d');
         $flash=0;
@@ -142,7 +142,7 @@ class KpireportController extends \common\components\AppController {
     }
 
     public function actionIdeath() {
-        $this->permitRole([1, 3]);
+        //$this->permitRole([1, 3]);
         $date1 = date('Y-m-d');
         $date2 = date('Y-m-d');
         $flash=0;
@@ -211,7 +211,7 @@ class KpireportController extends \common\components\AppController {
     }
 
     public function actionVdeath() {
-         $this->permitRole([1, 3]);
+        // $this->permitRole([1, 3]);
         $date1 = date('Y-m-d');
         $date2 = date('Y-m-d');
         $flash=0;
@@ -326,7 +326,7 @@ group by p.HOSPCODE";
     }
 
     public function actionVinjury() {
-        $this->permitRole([1, 3]);
+        //$this->permitRole([1, 3]);
         $date1 = date('Y-m-d');
         $date2 = date('Y-m-d');
         $flash=0;
@@ -391,7 +391,7 @@ group by p.HOSPCODE";
     }
 
     public function actionCausedeath() {
-        $this->permitRole([1, 3]);
+        //$this->permitRole([1, 3]);
         $date1 = date('Y-m-d');
         $date2 = date('Y-m-d');
         $flash=0;
@@ -559,7 +559,7 @@ group by p.HOSPCODE ";
     }
 
     public function actionCauseinjury() {
-        $this->permitRole([1, 3]);
+        //$this->permitRole([1, 3]);
         $date1 = date('Y-m-d');
         $date2 = date('Y-m-d');
         $flash=0;
